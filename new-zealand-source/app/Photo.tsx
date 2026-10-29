@@ -28,7 +28,7 @@ export type PhotoKey=keyof typeof photos;
 export default function Photo({id,credit=true}:{id:PhotoKey;credit?:boolean}){
  const p=photos[id], [failed,setFailed]=useState(false);
  useEffect(()=>setFailed(false),[id]);
- const src=`https://upload.wikimedia.org/wikipedia/commons/${p.hash}/${encodeURIComponent(p.file)}`;
+ const src=`./photos/${id}.webp`;
  return <figure className="realPhoto">{failed?<div className="photoFallback"><strong>{p.name}</strong><span>实景照片暂未加载</span><a href={'https://commons.wikimedia.org/wiki/File:'+encodeURIComponent(p.file)} target="_blank" rel="noreferrer">打开照片来源 ↗</a></div>:<img src={src} alt={p.name} loading="lazy" decoding="async" onError={()=>setFailed(true)}/>}{credit&&<figcaption><span>{p.name} · {p.date}</span><a href={'https://commons.wikimedia.org/wiki/File:'+encodeURIComponent(p.file)} target="_blank" rel="noreferrer">{p.author}</a><a href={p.licenseUrl} target="_blank" rel="noreferrer">{p.license} · 版式裁切</a></figcaption>}</figure>
 }
 export function PhotoCredits(){return <details className="photoCredits"><summary>实景照片来源与拍摄日期</summary><p>照片用于了解景点，不代表出行当天的天气或花期。页面做了适应版式的裁切；各照片沿用所标注的原许可；历史照片不代表现状。</p>{Object.values(photos).map(p=><p key={p.file}><a href={'https://commons.wikimedia.org/wiki/File:'+encodeURIComponent(p.file)} target="_blank" rel="noreferrer">{p.name}</a> · {p.author} · {p.date} · <a href={p.licenseUrl} target="_blank" rel="noreferrer">{p.license}</a></p>)}</details>}
