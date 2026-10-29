@@ -1,0 +1,32 @@
+name: Save travel photos locally
+on:
+  push:
+    paths:
+      - 'new-zealand-source/photos.json'
+      - '.github/workflows/localize-travel-photos.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  photos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install Pillow
+      - run: python new-zealand-source/localize-photos.py
+      - run: npm install && npm run build
+        working-directory: new-zealand-source
+      - run: |
+          cp -r new-zealand-source/dist/. new-zealand/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add new-zealand-source/public/photos new-zealand-source/app/Photo.tsx new-zealand/
+          git diff --cached --quiet || git commit -m 'Store optimized travel photos with website'
+          git push
