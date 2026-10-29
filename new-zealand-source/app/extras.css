@@ -7,3 +7,20 @@
 /* Keep the native date picker visible, including its option menu. */
 .dayPick{padding:0;min-width:0;overflow:visible}.dayPick strong,.dayPick:after{display:none}.dayPick select{position:static;inset:auto;opacity:1;width:100%;height:100%;min-height:50px;border:0;border-radius:9px;padding:10px 28px 10px 12px;background:#f8fcff;color:#17352c;font-size:16px;color-scheme:light}.dayPick option{color:#17352c;background:#fff;font-size:16px}.dayStepper{grid-template-columns:48px minmax(0,1fr) 48px}.dayPick:focus-within{outline:3px solid #e39818;outline-offset:2px}
 
+/* Phone layout: constrain intrinsic grid/select widths and preserve readable tap targets. */
+@media(max-width:780px){
+html,body,#root{width:100%;max-width:100%;margin:0}
+.app{width:100%;padding:16px 16px 150px;font-size:16px}
+.appHead{grid-template-columns:minmax(0,1fr)}
+.appHead>*,.dayControl,.dayStepper,.dayPick,.deskGrid>*,.careGrid>*,.placeMain,.dailyPlace>*,.foodPlan>*{min-width:0;max-width:100%}
+.dayPick select{min-width:0;max-width:100%;text-overflow:ellipsis}
+.dailyPlace{grid-template-columns:minmax(0,1fr);padding:24px 0;gap:12px}
+.dailyPlace dl{grid-column:1}.placeNo{font-size:22px}
+.sectionHead h2{font-size:30px}.panel{padding:28px 0}
+.deskHeading h2{font-size:26px;overflow-wrap:anywhere}
+.dailyDesk h3,.foodPlan h3{overflow-wrap:anywhere}
+.tabs{position:fixed;z-index:30;grid-template-columns:repeat(4,minmax(0,1fr));width:auto}
+.tabs button{min-height:48px;font-size:14px}
+button,select{min-height:44px}input,textarea,select{font-size:16px}
+img,iframe{max-width:100%}.story p{font-size:16px}.dailyPlace dt{font-size:14px}
+}
