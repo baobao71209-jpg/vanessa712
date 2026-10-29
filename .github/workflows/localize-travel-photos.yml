@@ -4,6 +4,7 @@ on:
     paths:
       - 'new-zealand-source/photos.json'
       - '.github/workflows/localize-travel-photos.yml'
+      - 'new-zealand-source/localize-photos.py'
   workflow_dispatch:
 permissions:
   contents: write

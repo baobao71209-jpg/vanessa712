@@ -7,7 +7,7 @@ out.mkdir(parents=True,exist_ok=True)
 for key,p in photos.items():
  target=out/(key+'.webp')
  if target.exists(): continue
- url='https://upload.wikimedia.org/wikipedia/commons/'+p['hash']+'/'+urllib.parse.quote(p['file'])
+ url='https://upload.wikimedia.org/wikipedia/commons/thumb/'+p['hash']+'/'+urllib.parse.quote(p['file'])+'/960px-'+urllib.parse.quote(p['file'])
  for attempt in range(4):
   try:
    req=urllib.request.Request(url,headers={'User-Agent':'NZFamilyTravelPhotoArchive/1.0 (github.com/baobao71209-jpg/vanessa712)'})
@@ -20,7 +20,7 @@ for key,p in photos.items():
   except Exception:
    if attempt==3: raise
    time.sleep(10*(attempt+1))
- time.sleep(2)
+ time.sleep(8)
 assert len(list(out.glob('*.webp')))==len(photos)
 p=root/'app/Photo.tsx'
 s=p.read_text()
